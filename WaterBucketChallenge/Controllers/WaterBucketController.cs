@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using WaterBucketChallenge.Models;
 using WaterBucketChallenge.Services;
 
 namespace WaterBucketChallenge.Controllers
@@ -8,10 +8,19 @@ namespace WaterBucketChallenge.Controllers
     [ApiController]
     public class WaterBucketController : ControllerBase
     {
-        [HttpGet(Name = "test")]
-        public string Get(int m, int n, int d)
+        [HttpGet()]
+        [Route("getSteps")]
+        public List<Step> GetSteps(int x, int y, int z)
         {
-            return new WaterBucketService().GetSteps(m,n,d);
+            return new WaterBucketService().GetSteps(x,y,z);
+        }
+
+
+        [HttpGet()]
+        [Route("showSteps")]
+        public string ShowSteps(int x, int y, int z)
+        {
+            return new WaterBucketService().ShowSteps(x, y, z);
         }
     }
 }
