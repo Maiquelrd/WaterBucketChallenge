@@ -6,6 +6,11 @@
         public int Value { get; set; }
         public int Cap { get; set; }
 
+        public Bucket()
+        {
+
+        }
+
         public Bucket(string name, int value, int cap)
         {
             Name = name;

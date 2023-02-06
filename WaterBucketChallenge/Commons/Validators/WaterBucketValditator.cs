@@ -3,9 +3,9 @@ using WaterBucketChallenge.Commons.Helpers;
 
 namespace WaterBucketChallenge.Commons.Validators
 {
-    public class WaterBucketValditator
+    public class WaterBucketValditator : IWaterBucketValditator
     {
-        public static bool Validate(int x, int y, int z)
+        public bool Validate(int x, int y, int z)
         {
             if (!ValuesArePositives(x,y,z)) 
                 throw new ValidationException("Values most be positives");
@@ -18,23 +18,23 @@ namespace WaterBucketChallenge.Commons.Validators
 
             return true;
         }
-        public static bool ValuesArePositives(int x, int y, int z)
+        public bool ValuesArePositives(int x, int y, int z)
         {
             return (x >= 0 && y >= 0 && z >= 0);
         }
 
-        public static bool ValuesAreSafe(int x, int y, int z)
+        public bool ValuesAreSafe(int x, int y, int z)
         {
             int maxLenght = EnvironmentHelper.GetEnv<int>("MAX_NUMBER", 1000);
             return (x <= maxLenght && y <= maxLenght && z <= maxLenght);
         }
 
-        public static bool ZIsLower(int x, int y, int z)
+        public bool ZIsLower(int x, int y, int z)
         {
             return z < Math.Max(x, y);
         }
 
-        public static bool IsDivisible(int x, int y, int z)
+        public bool IsDivisible(int x, int y, int z)
         {
             return ((z % NumberHelper.greatestCommonDivisor(y, x)) == 0);
         }

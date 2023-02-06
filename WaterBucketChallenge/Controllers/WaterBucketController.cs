@@ -8,11 +8,17 @@ namespace WaterBucketChallenge.Controllers
     [ApiController]
     public class WaterBucketController : ControllerBase
     {
+        private readonly IWaterBucketService _waterBucketService;
+
+        public WaterBucketController(IWaterBucketService waterBucketService)
+        {
+            _waterBucketService = waterBucketService;
+        }
         [HttpGet()]
         [Route("getSteps")]
         public List<Step> GetSteps(int x, int y, int z)
         {
-            return new WaterBucketService().GetSteps(x,y,z);
+            return _waterBucketService.GetSteps(x,y,z);
         }
 
 
@@ -20,7 +26,7 @@ namespace WaterBucketChallenge.Controllers
         [Route("showSteps")]
         public string ShowSteps(int x, int y, int z)
         {
-            return new WaterBucketService().ShowSteps(x, y, z);
+            return _waterBucketService.ShowSteps(x, y, z);
         }
     }
 }

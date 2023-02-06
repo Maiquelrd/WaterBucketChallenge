@@ -4,9 +4,14 @@ using WaterBucketChallenge.Models;
 
 namespace WaterBucketChallenge.Services
 {
-    public class WaterBucketService
+    public class WaterBucketService : IWaterBucketService
     {
-        public string ShowSteps(int x, int y, int z)
+        private readonly IWaterBucketValditator _waterBucketValditator;
+        public WaterBucketService(IWaterBucketValditator waterBucketValditator)
+        {
+            _waterBucketValditator = waterBucketValditator;
+        }
+        public virtual string ShowSteps(int x, int y, int z)
         {
             List<Step> solution = GetSteps(x, y, z);
             IEnumerable<string> stepsDescription = solution.Select(x => x.Description);
@@ -14,10 +19,10 @@ namespace WaterBucketChallenge.Services
             return String.Join("\n", stepsDescription);
         }
 
-        public List<Step> GetSteps(int x, int y, int z)
+        public virtual List<Step> GetSteps(int x, int y, int z)
         {
 
-            if (!WaterBucketValditator.Validate(x, y, z))
+            if (!_waterBucketValditator.Validate(x, y, z))
                 return new List<Step>();
 
             Bucket bucketX = new Bucket("X", 0, x);
@@ -30,7 +35,7 @@ namespace WaterBucketChallenge.Services
 
         }
 
-        public List<Step> Pour(Bucket fromBucket, Bucket toBucket,int desired)
+        public virtual List<Step> Pour(Bucket fromBucket, Bucket toBucket,int desired)
         {
             List<Step> steps = new List<Step>();
 
@@ -55,20 +60,20 @@ namespace WaterBucketChallenge.Services
             return steps;
         }
 
-        public void Fill(Bucket bucket, List<Step> steps)
+        public virtual void Fill(Bucket bucket, List<Step> steps)
         {
             bucket.Value = bucket.Cap;
             steps.Add(new Step(steps.Count + 1, StepAction.Fill, bucket.Cap, bucket));
         }
 
-        public void Dump(Bucket bucket, List<Step> steps)
+        public virtual void Dump(Bucket bucket, List<Step> steps)
         {
             int currentVal = bucket.Value;
             bucket.Value = 0;
             steps.Add(new Step(steps.Count + 1, StepAction.Dump, currentVal, bucket));
         }
 
-        public void Transfer(Bucket fromBucket, Bucket toBucket, int value, List<Step> steps)
+        public virtual void Transfer(Bucket fromBucket, Bucket toBucket, int value, List<Step> steps)
         {
             toBucket.Value += value;
             fromBucket.Value -= value;

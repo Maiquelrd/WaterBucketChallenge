@@ -1,4 +1,6 @@
 using WaterBucketChallenge.Commons.Middlewares;
+using WaterBucketChallenge.Commons.Validators;
+using WaterBucketChallenge.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IWaterBucketService, WaterBucketService>();
+builder.Services.AddScoped<IWaterBucketValditator, WaterBucketValditator>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

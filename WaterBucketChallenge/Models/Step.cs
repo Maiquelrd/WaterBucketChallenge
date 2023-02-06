@@ -12,7 +12,7 @@ namespace WaterBucketChallenge.Models
         public Bucket? ToBucket { get; set; }
         public string Description { get; set; }
 
-
+        public Step() { }
         public Step(int number, string action,int value, Bucket affectedBucket, Bucket? toBucket = null)
         {
             Number = number;
