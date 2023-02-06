@@ -1,5 +1,5 @@
-﻿using WaterBucketChallenge.Commons.Helpers;
-using WaterBucketChallenge.Commons.Structs;
+﻿using WaterBucketChallenge.Commons.Structs;
+using WaterBucketChallenge.Commons.Validators;
 using WaterBucketChallenge.Models;
 
 namespace WaterBucketChallenge.Services
@@ -16,10 +16,8 @@ namespace WaterBucketChallenge.Services
 
         public List<Step> GetSteps(int x, int y, int z)
         {
-            if (z > Math.Max(x, y))
-                return new List<Step>();
 
-            if ((z % NumberHelper.greatestCommonDivisor(y, x)) != 0)
+            if (!WaterBucketValditator.Validate(x, y, z))
                 return new List<Step>();
 
             Bucket bucketX = new Bucket("X", 0, x);

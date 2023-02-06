@@ -9,5 +9,10 @@ namespace WaterBucketChallenge.Commons.Helpers
             var serialized = JsonConvert.SerializeObject(source);
             return JsonConvert.DeserializeObject<T>(serialized);
         }
+
+        public static T GetValue<T>(String value)
+        {
+            return (T)Convert.ChangeType(value, typeof(T));
+        }
     }
 }
